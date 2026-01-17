@@ -1,6 +1,5 @@
 from pydantic import BaseModel
-from typing import Optional
-from datetime import datetime  # <--- Added this import
+from datetime import datetime
 
 # This handles the input validation
 class EventCreate(BaseModel):

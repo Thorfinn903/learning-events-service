@@ -16,7 +16,7 @@ app = FastAPI()
 def home():
     return {"message": "Service is running. Go to /docs to see the API."}
 
-# Requirement 1: POST /log_event
+#  POST /log_event
 @app.post("/log_event", response_model=schemas.EventResponse, status_code=201)
 def log_event(event: schemas.EventCreate, db: Session = Depends(get_db)):
     """
@@ -24,7 +24,7 @@ def log_event(event: schemas.EventCreate, db: Session = Depends(get_db)):
     """
     return crud.create_event(db, event)
 
-# Requirement 2: GET /events/{user_id}
+# GET /events/{user_id}
 @app.get("/events/{user_id}", response_model=List[schemas.EventResponse])
 def read_events(user_id: str, db: Session = Depends(get_db)):
     """
@@ -32,12 +32,10 @@ def read_events(user_id: str, db: Session = Depends(get_db)):
     """
     events = crud.get_user_events(db, user_id)
     if not events:
-        # Simple error handling if no user found
-        # (Though usually returning empty list is fine too)
         print("No events found for this user")
     return events
 
-# Requirement 3: GET /events/{user_id}/{concept_id}
+# GET /events/{user_id}/{concept_id}
 @app.get("/events/{user_id}/{concept_id}", response_model=List[schemas.EventResponse])
 def read_concept_events(user_id: str, concept_id: str, db: Session = Depends(get_db)):
     """
